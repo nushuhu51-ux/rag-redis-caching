@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaling guide Q&amp;A</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231f4e9c'/%3E%3Crect x='7' y='8' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='14' width='18' height='4' rx='2' fill='white'/%3E%3Crect x='7' y='20' width='18' height='4' rx='2' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/charts.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-in">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="8"/><rect x="7" y="8" width="18" height="4" rx="2"/><rect x="7" y="14" width="18" height="4" rx="2"/><rect x="7" y="20" width="11" height="4" rx="2"/></svg>
+        <span class="brand-name">iCog Labs <span class="brand-sub">Database Performance and Scaling</span></span>
+      </div>
+      <div class="tools">
+        <p class="conn" id="conn" role="status"><span class="conn-dot" aria-hidden="true"></span><span id="conn-text">Connecting…</span></p>
+        <button type="button" class="icon-btn" id="theme" aria-label="Switch to dark theme" title="Switch theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path class="sun" d="M12 4V2m0 20v-2m8-8h2M2 12h2m13.7-5.7 1.4-1.4M4.9 19.1l1.4-1.4m0-11.4L4.9 4.9m14.2 14.2-1.4-1.4M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10Z"/><path class="moon" d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-in">
+      <h1>Ask the scaling guide</h1>
+      <p>Questions about indexing, scaling reads and writes, and caching, answered from the training guide. A question you have asked before is served from Redis, and the page shows what that saved.</p>
+    </div>
+  </section>
+
+  <div class="layout">
+    <main class="main">
+      <form id="ask-form" class="panel ask" autocomplete="off">
+        <label for="q">Your question</label>
+        <textarea id="q" name="question" rows="3" maxlength="1000" required placeholder="For example: Why can an index slow down writes?"></textarea>
+        <div class="ask-row">
+          <span class="hint">Enter to ask, Shift+Enter for a new line</span>
+          <span class="count" id="count" aria-live="polite"></span>
+          <button type="submit" id="submit">Ask</button>
+        </div>
+        <div class="samples" id="samples"><span class="samples-label">Try</span></div>
+      </form>
+
+      <section class="panel path" aria-labelledby="path-title">
+        <h2 id="path-title">Path through the pipeline</h2>
+        <ol class="pipeline" id="pipeline"></ol>
+        <p class="path-caption" id="path-caption"></p>
+        <div class="compare" id="compare" hidden></div>
+      </section>
+
+      <div id="error" class="error" role="alert" hidden></div>
+
+      <section id="result" class="panel result" aria-live="polite" aria-busy="false">
+        <p class="empty">Answers and the passages they came from appear here.</p>
+      </section>
+    </main>
+
+    <aside class="rail" aria-label="Session details">
+      <section class="panel rail-block" aria-labelledby="stats-title">
+        <h2 id="stats-title">Server totals</h2>
+        <p class="rail-note">Counted since the server started, across everyone using it.</p>
+        <div class="gauge-wrap">
+          <svg class="gauge" id="gauge" viewBox="0 0 120 120" role="img" aria-label="Cache hit rate"></svg>
+        </div>
+        <dl class="stats" id="stats"><div class="stats-empty">Loading…</div></dl>
+      </section>
+
+      <section class="panel rail-block" aria-labelledby="trend-title">
+        <h2 id="trend-title">Latency of this tab’s requests</h2>
+        <svg class="trend" id="trend" viewBox="0 0 260 110" role="img" aria-label="Latency per request"></svg>
+        <p class="rail-note" id="trend-note">Bars appear as you ask. Green bars were served from Redis.</p>
+      </section>
+
+      <section class="panel rail-block" aria-labelledby="history-title">
+        <h2 id="history-title">Asked in this tab</h2>
+        <ol class="history" id="history">
+          <li class="history-empty">Nothing yet. Ask the same question twice to watch the cache work.</li>
+        </ol>
+      </section>
+    </aside>
+  </div>
+
+  <footer class="foot">
+    <p>Answers are assembled from passages of the guide. Check the sources under each answer before relying on it.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,15 @@
+# Redis only; the application runs with `python -m app.main`.
+# Override REDIS_MAXMEMORY when needed, e.g. REDIS_MAXMEMORY=512mb docker compose up -d redis.
+services:
+  redis:
+    image: redis:7
+    ports:
+      - "127.0.0.1:6379:6379"
+    command:
+      [
+        "redis-server",
+        "--save", "",
+        "--appendonly", "no",
+        "--maxmemory", "${REDIS_MAXMEMORY:-256mb}",
+        "--maxmemory-policy", "allkeys-lru"
+      ]

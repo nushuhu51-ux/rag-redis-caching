@@ -1,0 +1,52 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0 -- /usr/local/bin/python3
+rootdir: /home/claude/rag-redis-cache
+configfile: pytest.ini
+testpaths: tests
+plugins: platformdirs-4.13.5, anyio-4.15.1
+collecting ... collected 42 items
+
+tests/test_api.py::test_http_miss_then_hit_with_sources PASSED           [  2%]
+tests/test_api.py::test_http_negative_content_length_is_rejected_not_hung PASSED [  4%]
+tests/test_api.py::test_http_non_numeric_content_length PASSED           [  7%]
+tests/test_api.py::test_http_oversized_body_rejected_before_reading PASSED [  9%]
+tests/test_api.py::test_http_malformed_bodies PASSED                     [ 11%]
+tests/test_api.py::test_http_unicode_question PASSED                     [ 14%]
+tests/test_api.py::test_http_validation PASSED                           [ 16%]
+tests/test_cache_workflow.py::test_01_first_question_is_cache_miss PASSED [ 19%]
+tests/test_cache_workflow.py::test_02_repeated_question_is_cache_hit PASSED [ 21%]
+tests/test_cache_workflow.py::test_03_cached_answer_keeps_correct_sources PASSED [ 23%]
+tests/test_cache_workflow.py::test_04_cache_hit_does_not_retrieve PASSED [ 26%]
+tests/test_cache_workflow.py::test_05_cache_hit_does_not_generate PASSED [ 28%]
+tests/test_cache_workflow.py::test_06_cache_miss_runs_retrieval_and_generation PASSED [ 30%]
+tests/test_cache_workflow.py::test_07a_nothing_relevant_is_not_cached PASSED [ 33%]
+tests/test_cache_workflow.py::test_07b_generation_failure_is_not_cached PASSED [ 35%]
+tests/test_cache_workflow.py::test_07c_empty_answer_is_not_cached PASSED [ 38%]
+tests/test_cache_workflow.py::test_08_expiration_follows_configured_ttl PASSED [ 40%]
+tests/test_cache_workflow.py::test_08b_ttl_must_be_positive PASSED       [ 42%]
+tests/test_cache_workflow.py::test_09a_redis_down_returns_fresh_correct_answer_and_flags_it PASSED [ 45%]
+tests/test_cache_workflow.py::test_09b_redis_killed_midway PASSED        [ 47%]
+tests/test_cache_workflow.py::test_09c_corrupt_cache_entry_is_not_served PASSED [ 50%]
+tests/test_cache_workflow.py::test_10_different_questions_do_not_share_entries PASSED [ 52%]
+tests/test_cache_workflow.py::test_key_normalizes_case_and_whitespace PASSED [ 54%]
+tests/test_cache_workflow.py::test_key_changes_with_context PASSED       [ 57%]
+tests/test_cache_workflow.py::test_key_changes_when_documents_change PASSED [ 59%]
+tests/test_cache_workflow.py::test_cache_disabled_never_touches_redis PASSED [ 61%]
+tests/test_cache_workflow.py::test_order_redis_is_checked_before_retrieval PASSED [ 64%]
+tests/test_cache_workflow.py::test_empty_question_rejected PASSED        [ 66%]
+tests/test_stampede_and_llm.py::test_stampede_only_one_rebuild_for_concurrent_identical_misses PASSED [ 69%]
+tests/test_stampede_and_llm.py::test_stampede_different_questions_do_not_block_each_other PASSED [ 71%]
+tests/test_stampede_and_llm.py::test_lock_released_after_failed_generation_and_waiter_recovers PASSED [ 73%]
+tests/test_stampede_and_llm.py::test_lock_expires_so_crashed_holder_cannot_block_forever PASSED [ 76%]
+tests/test_stampede_and_llm.py::test_wait_timeout_falls_back_to_computing PASSED [ 78%]
+tests/test_stampede_and_llm.py::test_llm_success_is_cached_and_hit_skips_the_llm PASSED [ 80%]
+tests/test_stampede_and_llm.py::test_llm_api_key_not_in_cache_key_or_value PASSED [ 83%]
+tests/test_stampede_and_llm.py::test_llm_failures_raise_and_are_not_cached[500] PASSED [ 85%]
+tests/test_stampede_and_llm.py::test_llm_failures_raise_and_are_not_cached[empty] PASSED [ 88%]
+tests/test_stampede_and_llm.py::test_llm_failures_raise_and_are_not_cached[garbage] PASSED [ 90%]
+tests/test_stampede_and_llm.py::test_llm_no_answer_token_is_unanswered_and_not_cached PASSED [ 92%]
+tests/test_stampede_and_llm.py::test_llm_unreachable_is_generation_error_not_cached PASSED [ 95%]
+tests/test_stampede_and_llm.py::test_cache_key_differs_between_llm_providers PASSED [ 97%]
+tests/test_stampede_and_llm.py::test_provider_config_validation PASSED   [100%]
+
+============================= 42 passed in 12.60s ==============================

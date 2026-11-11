@@ -1,0 +1,85 @@
+{
+  "environment": {
+    "python": "3.13.18",
+    "platform": "Linux-6.18.44-fc-v310-x86_64-with-glibc2.39",
+    "redis": "redis-server 7.0.15, local, same host, loopback TCP, no persistence",
+    "corpus_chunks": 18,
+    "distinct_questions": 10,
+    "repeats_per_question": 10,
+    "seed": 42
+  },
+  "runs": {
+    "native": {
+      "A_no_cache": {
+        "requests": 100,
+        "avg_latency_ms": 0.669,
+        "p50_ms": 0.666,
+        "p95_ms": 0.751,
+        "avg_hit_ms": null,
+        "avg_miss_or_uncached_ms": 0.669,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "hit_rate": null,
+        "miss_rate": null,
+        "retrieval_ops": 100,
+        "generation_ops": 100,
+        "total_time_s": 0.067
+      },
+      "B_with_cache": {
+        "requests": 100,
+        "avg_latency_ms": 0.253,
+        "p50_ms": 0.083,
+        "p95_ms": 1.688,
+        "avg_hit_ms": 0.089,
+        "avg_miss_or_uncached_ms": 1.728,
+        "cache_hits": 90,
+        "cache_misses": 10,
+        "hit_rate": 0.9,
+        "miss_rate": 0.1,
+        "retrieval_ops": 10,
+        "generation_ops": 10,
+        "total_time_s": 0.025
+      },
+      "avg_latency_speedup_x": 2.64,
+      "avg_latency_reduction_pct": 62.2,
+      "generation_ops_saved": 90,
+      "retrieval_ops_saved": 90
+    },
+    "sim-llm-300ms": {
+      "A_no_cache": {
+        "requests": 100,
+        "avg_latency_ms": 301.738,
+        "p50_ms": 301.686,
+        "p95_ms": 302.099,
+        "avg_hit_ms": null,
+        "avg_miss_or_uncached_ms": 301.738,
+        "cache_hits": 0,
+        "cache_misses": 0,
+        "hit_rate": null,
+        "miss_rate": null,
+        "retrieval_ops": 100,
+        "generation_ops": 100,
+        "total_time_s": 30.174
+      },
+      "B_with_cache": {
+        "requests": 100,
+        "avg_latency_ms": 30.317,
+        "p50_ms": 0.068,
+        "p95_ms": 302.341,
+        "avg_hit_ms": 0.078,
+        "avg_miss_or_uncached_ms": 302.468,
+        "cache_hits": 90,
+        "cache_misses": 10,
+        "hit_rate": 0.9,
+        "miss_rate": 0.1,
+        "retrieval_ops": 10,
+        "generation_ops": 10,
+        "total_time_s": 3.032
+      },
+      "avg_latency_speedup_x": 9.95,
+      "avg_latency_reduction_pct": 90.0,
+      "generation_ops_saved": 90,
+      "retrieval_ops_saved": 90
+    }
+  }
+}
