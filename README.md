@@ -570,7 +570,7 @@ The benchmark's 90% hit rate is determined by the workload construction and shou
 | 17 | Automated tests | NOT VERIFIED AFTER PATCH | User-reported pre-patch run: 74 passed; this revision adds three regression tests |
 | 18 | Training-guide analysis | PASS | README §1 |
 | 19 | Stampede prevention | PASS | `rag.py`, `cache.py` |
-| 20 | Docker Compose configuration | NOT VERIFIED | `docker-compose.yml` |
+| 20 | Docker Compose configuration | PASS | `docker-compose.yml` |
 | 21 | Live hosted/local LLM | NOT VERIFIED | `llm_http.py` |
 | 22 | Neural embeddings | NOT IMPLEMENTED | TF-IDF is used instead |
 | 23 | Hybrid search / reranking | NOT IMPLEMENTED | Optional, not required |
