@@ -43,6 +43,23 @@
     },
   };
 
+  // When the guide has nothing relevant (answered === false) no answer is produced, so nothing is
+  // ever written to Redis. The cache_status alone ("miss") must not be read as "answered, then cached".
+  const NO_ANSWER = {
+    tone: "idle", badge: "No answer \u00b7 not cached",
+    detail: "Redis had no answer and the guide has no relevant passages, so nothing was stored. Asking again will miss again.",
+  };
+  const NO_ANSWER_STATUS = {
+    unavailable: {
+      tone: "fail", badge: "Redis unavailable",
+      detail: "Redis could not be reached and the guide has no relevant passages, so there was no answer to cache.",
+    },
+    disabled: {
+      tone: "idle", badge: "No answer \u00b7 cache off",
+      detail: "Caching is turned off and the guide has no relevant passages, so there was no answer to cache.",
+    },
+  };
+
   const $ = (id) => document.getElementById(id);
   const form = $("ask-form");
   const input = $("q");
@@ -101,9 +118,11 @@
     return (lastSpace > 0 ? t.slice(0, lastSpace) : t).replace(/[\s,;:–-]+$/, "") + "…";
   }
 
-  const statusInfo = (resp) =>
-    STATUS[resp.cache_status] ||
-    { tone: "idle", badge: String(resp.cache_status || "Answered"), detail: "" };
+  const statusInfo = (resp) => {
+    if (resp.answered === false) return NO_ANSWER_STATUS[resp.cache_status] || NO_ANSWER;
+    return STATUS[resp.cache_status] ||
+      { tone: "idle", badge: String(resp.cache_status || "Answered"), detail: "" };
+  };
 
   /** Answer text as per-word spans so the answer fades in; whitespace stays as text nodes. */
   function revealWords(text) {
